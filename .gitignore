@@ -1,0 +1,7 @@
+venv/
+.idea/
+*.xml
+*DS_STORE*
+*__pycache__*
+keygen
+*.csv
