@@ -33,7 +33,10 @@ The map is loaded from the [assets/](https://github.com/filipkrasniqi/smartparki
 You should run the [brain/main.py](https://github.com/filipkrasniqi/smartparking-brain/blob/master/brain/brain.py). This code will run the MQTTSubscriber thread, that initializes MQTT stuff (connection, subscribing to topics) and starts the [check timer](https://github.com/filipkrasniqi/smartparking-brain/blob/af36fcf85e2e79d3151cb746b36253d6a18960a8/mqtt/timer/check_timer.py#L7), whose duty is to check whether active nodes and devices communicate properly, handling reinitialization in case of disconnection / ungraceful close.
 
 ### Data collection
-- **Parking**: all info regarding the parking is stored in the [ParkingContainer](https://github.com/filipkrasniqi/smartparking-brain/blob/af36fcf85e2e79d3151cb746b36253d6a18960a8/map/elements/parking_container.py#L11) instance
+- **Parking**: all info regarding the parking is stored in the [ParkingContainer](https://github.com/filipkrasniqi/smartparking-brain/blob/af36fcf85e2e79d3151cb746b36253d6a18960a8/map/elements/parking_container.py#L11) instance. This instance resembles the following structure:
+  - a ParkingContainer instance contains a list of [Parking](https://github.com/filipkrasniqi/smartparking-brain/blob/d3c1b25b9484c5f5d3c5310c404f913a714cb7da/map/elements/parking.py#L8) instances;
+    - a Parking instance contains a list of [Node](https://github.com/filipkrasniqi/smartparking-brain/blob/d3c1b25b9484c5f5d3c5310c404f913a714cb7da/map/elements/node.py#L11) instances;
+      - a Node instance contains a list of [Slot](https://github.com/filipkrasniqi/smartparking-brain/blob/d3c1b25b9484c5f5d3c5310c404f913a714cb7da/map/elements/node.py#L50) instances.
 - **Devices**: they are stored in the **devices** dictionary, having **deviceID** as key and an instance of [DeviceTimer](https://github.com/filipkrasniqi/smartparking-brain/blob/af36fcf85e2e79d3151cb746b36253d6a18960a8/mqtt/timer/device_timer.py#L16) as value. Every time a new devices (with a new ID) is activated, a new DeviceTimer is instanced, having the goal of communicating to the device information about available parking spaces depending on its destination.
 
 ## Short term TODOs
